@@ -2,10 +2,10 @@ import Title from "./Content/Title";
 import Body from "./Content/Body";
 
 
-export default function Main(){
+export default function Main({handleShow}){
     return (
         <div className='container-sm body-container'>
-          <Title />
+          <Title handleShow={handleShow}/>
          <Body />
         </div>
     );

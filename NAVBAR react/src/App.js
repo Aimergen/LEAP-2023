@@ -4,12 +4,24 @@ import Navbar from "./components/Navbar";
 import Title from "./components/Content/Title";
 import Body from "./components/Content/Body";
 import Main from "./components/Main";
+import DynamicModal from "./components/utils/Modal";
+import { useState } from "react";
+import PostCreate from "./components/Blogs/PostCreate";
 
 function App() {
+  const [show, setShow] = useState(false);
+
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+ 
+  
+
   return (
     <>
       <Navbar />
-      <Main />
+      <Main handleShow={handleShow}/>
       <div className="container">
         <div className="row">
           <div className="col-sm-3">
@@ -30,6 +42,11 @@ function App() {
           </div>
         </div>
       </div>
+      <DynamicModal 
+      show={show} 
+      handleClose={handleClose} 
+      title="Create post" content={PostCreate}/>
+
     </>
   );
 }
