@@ -46,7 +46,8 @@ const [direction, setDirection]= useState('Down');
     let newSnake=[...snake];
     newSnake=newSnake.map((item, index)=>{
       if(index===0){
-        return{x:item.x , y: item.y + 1};
+        if(item.y===yCells - 1) return {x: item.x, y: 0};
+        return{x: item.x , y: item.y + 1};
       }
       return {x:newSnake[index - 1].x, y: newSnake[index - 1].y};
     });
@@ -57,6 +58,7 @@ const [direction, setDirection]= useState('Down');
     let newSnake=[...snake];
     newSnake=newSnake.map((item, index)=>{
       if(index===0){
+        if(item.x===xCells - 1) return {x: 0, y:item.y};
         return{x:item.x + 1 , y: item.y};
       }
       return {x:newSnake[index - 1].x, y: newSnake[index - 1].y};
@@ -68,6 +70,7 @@ const [direction, setDirection]= useState('Down');
     let newSnake=[...snake];
     newSnake=newSnake.map((item, index)=>{
       if(index===0){
+        if(item.y===0) return{x: 0, y:yCells - 1};
         return{x:item.x , y: item.y - 1};
       }
       return {x:newSnake[index - 1].x, y: newSnake[index - 1].y};
@@ -79,6 +82,7 @@ const [direction, setDirection]= useState('Down');
     let newSnake=[...snake];
     newSnake=newSnake.map((item, index)=>{
       if(index===0){
+        if(item.x===0) return {x:xCells - 1, y: item.y};
         return{x:item.x-1 , y: item.y};
       }
       return {x:newSnake[index-1].x, y: newSnake[index-1].y};
