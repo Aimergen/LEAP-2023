@@ -5,28 +5,38 @@
   border-top: 0.3em solid rgba(255, 255, 255, 0.7);
 }
 
-.body-container{
+.body-container {
   max-width: 700px;
 }
-.main-wrapper{
+
+.main-wrapper {
   overflow: hidden;
 }
-.off-menu{
+
+.off-menu {
   position: fixed;
   top: 56px;
-  left: 0;
+  left: -200px;
   bottom: 0;
   width: 200px;
   color: #fff;
   transition: 0.2s all;
 }
-.off-menu-sibiling{
+
+.off-menu-sibling {
   transition: 0.2s all;
   padding-left: 0;
 }
-.off-menu.show{
+
+.off-menu.show {
   left: 0;
 }
-.off-menu.hidden + .off-menu-sibiling{
+
+.off-menu.show + .off-menu-sibling {
   padding-left: 200px;
+}
+
+.navbar-toggler {
+  display: block !important;
+  margin-right: 20px !important;
 }

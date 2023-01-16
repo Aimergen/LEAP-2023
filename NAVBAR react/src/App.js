@@ -7,47 +7,59 @@ import Main from "./components/Main";
 import DynamicModal from "./components/utils/Modal";
 import { useState } from "react";
 import PostCreate from "./components/Blogs/PostCreate";
+import { Button } from "react-bootstrap";
+import {Routes, Route} from 'react-router-dom';
+
+const Home=()=>{
+  return <>
+    Home Page
+  </>;
+};
+
+const Articles=({menuShow, handleShow})=>{
+  return <> </>
+}
 
 function App() {
   const [show, setShow] = useState(false);
+  
 
+  const [menuShow, setMenuShow]= useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const toggleMenu=()=>{
+
+  }
  
   
 
   return (
     <>
-      <Navbar />
-      <Main handleShow={handleShow}/>
-      <div className="container">
-        <div className="row">
-          <div className="col-sm-3">
-            <div className="card">
-            
-              <img src="/img/product5.jpg"/>
-              <div className="card-body">
-                <h5 className="card-title">Card title</h5>
-                <p className="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
-                <a href="#" className="btn btn-primary">
-                  Go somewhere
-                </a>
-              </div>
-            </div>
+  
+      <Navbar onToggle={() => setMenuShow(!menuShow)} />
+      <div className="main-wrapper">
+        <div 
+        className={`off-menu bg-dark 
+        ${menuShow && 'show'}`}>
+          Test
+          </div>
+        <div className="off-menu-sibling">
+          <div className="container-sm body-container">
+            {/* <Heading  */}
+            {/* title="Blog posts" 
+            handleShow={handleShow} /> */}
+            {/* <PostList /> */}
           </div>
         </div>
       </div>
       <DynamicModal 
       show={show} 
       handleClose={handleClose} 
-      title="Create post" content={PostCreate}/>
-
-    </>
+      title="Create post" 
+      content={<PostCreate />} />
+     </>
   );
 }
 
