@@ -4,26 +4,27 @@ import Navbar from './components/Navbar';
 import DynamicModal from './components/utils/DynamicModal';
 import { useState } from 'react';
 import PostCreate from './components/Blogs/PostCreate';
-
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Articles from './pages/Articles';
 import Signing from './pages/Signing';
 import SigningError from './pages/SigningError';
 import SignUp from './pages/SignUp';
+import SigninSuccess from './pages/SigningSuccess';
 
 export default function App() {
-  const [signedIn, setSignedIn]=useState(false);
+  const [me, setMe]=useState(undefined);
   const [show, setShow] = useState(false);
   const [menuShow, setMenuShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  if(!signedIn){
+  if(!me){
     return (
         <Routes>
             <Route path='/signin' element={<Signing />}/>
+            <Route path='/signin/success' element={<SigninSuccess setMe={setMe} />}/>
             <Route path='/signup' element={<SignUp />}/>
             <Route path='*' element={<SigningError />}/>
         </Routes>
