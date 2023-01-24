@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import { json, Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import TOAST_CONFIG from '../utils/configs';
+import axios from 'axios';
 
 
 export default function Signing() {
@@ -12,30 +13,41 @@ export default function Signing() {
     const navigate= useNavigate();
 
     const submitSignIn=()=>{
-        let status=200;
-        fetch('https://demo-api-one.vercel.app/api/signin', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({email, password}),
-        })
-        .then((res)=> {
-            status = res.status;
-            return res.json();
-        })
-        .then((data)=>{
-            if(status !==200){
-                toast.error(data.message, TOAST_CONFIG)
-            }else{
-                toast.success(data.message, TOAST_CONFIG);
-                localStorage.setItem('token', data.body);
+
+        axios
+            .post('https://demo-api-one.vercel.app/api/signin',{email, password})
+            .then((res)=>{
+                toast.success(res.data.message, TOAST_CONFIG);
+                localStorage.setItem('token', res.data.body);
                 navigate('/signin/success');
-            }
-        })
-        .catch((err)=>{
-            console.log(err);
-        });
+            })
+            .catch((e)=>{
+                const errMsg=e.response.data.message || 'Aldaa garlaa';
+                toast.error(errMsg, TOAST_CONFIG);
+            });
+        // fetch('https://demo-api-one.vercel.app/api/signin', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify({email, password}),
+        // })
+        // .then((res)=> {
+        //     status = res.status;
+        //     return res.json();
+        // })
+        // .then((data)=>{
+        //     if(status !==200){
+        //         toast.error(data.message, TOAST_CONFIG)
+        //     }else{
+        //         toast.success(data.message, TOAST_CONFIG);
+        //         localStorage.setItem('token', data.body);
+        //         navigate('/signin/success');
+        //     }
+        // })
+        // .catch((err)=>{
+        //     console.log(err);
+        // });
     };
   return (
     <div className='w-100 min-vh-100 d-flex align-items-center justify-content-center flex-column'>
