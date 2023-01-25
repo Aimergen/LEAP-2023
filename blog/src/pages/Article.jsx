@@ -9,9 +9,9 @@ export default function Article() {
 
     useEffect(()=>{
         axios
-            .get(`https://demo-api-one.vercel.app/api/articles/${id}`)
+            .get(`http://localhost:8000/article/${id}`)
             .then((res)=>{
-                setArticle(res.data.body);
+                setArticle(res.data);
             });     
     },[]);
 
@@ -23,6 +23,7 @@ export default function Article() {
             style={{maxWidth: '100%'}}
             src={article.imageUrl} 
             alt="" />
+            <p>{article.description}</p>
     </div>
   );
 }

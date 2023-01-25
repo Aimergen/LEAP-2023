@@ -7,9 +7,9 @@ export default function Home() {
   const [articles, setArticles]= useState([]);
   useEffect(()=>{
     axios
-      .get('https://demo-api-one.vercel.app/api/articles')
+      .get('http://localhost:8000')
       .then((res)=>{
-        setArticles(res.data.body);
+        setArticles(res.data);
       });
   },[]);
   // const articles = [
@@ -31,12 +31,12 @@ export default function Home() {
     <main>
       <div className="container">
         <div className="row gy-4">
-          {articles.map((article) => (
-            <div className="col-md-3 col-sm-6 col-12" key={article.id}>
-              <Link to={`/articles/${article.id}`}>
+          {articles.map((home) => (
+            <div className="col-md-3 col-sm-6 col-12" key={home.id}>
+              <Link to={`/articles/${home.id}`}>
                 <Card 
-                title={article.name} 
-                image={article.imageUrl}/>
+                title={home.name} 
+                image={home.imageUrl}/>
               </Link>
             </div>
           ))}
