@@ -7,6 +7,7 @@ export default function Navbar({ onToggle }) {
     { label: 'Articles', link: '/articles' },
     { label: 'Feedback', link: '#' },
     { label: 'Files', link: '#' },
+    {label: 'Categories', link: '/categories'}
   ];
   const dropdownItems = [
     { label: 'Profile', link: '#' },

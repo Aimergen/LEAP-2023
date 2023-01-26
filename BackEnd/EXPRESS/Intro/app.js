@@ -1,12 +1,17 @@
 const express= require('express');
 const cors = require("cors");
 const { url } = require('inspector');
+
+const bodyParser= require('body-parser');
+const jsonParser= bodyParser.json();
+const { json } = require('express');
+
 const app =express();
 app.use(cors());
 const port=8000;
 
 
-const categories= [
+let categories= [
     {
         id: 1,
         name: 'FrontEnd',
@@ -21,6 +26,8 @@ const categories= [
         name:'FullStack'
     }
 ];
+
+let nextCatId= categories.length;
 
 const article= [
     {
@@ -69,7 +76,7 @@ const article= [
 
 app.get('/', (req, res)=>{
     res.status(200);
-    res.json(article);
+    res.json(categories);
 });
 
 app.get('/categories',(request, response)=>{
@@ -77,9 +84,30 @@ app.get('/categories',(request, response)=>{
     response.json(categories);
 });
 
-app.get('/categories/:id',(request, response)=>{
+app.get('/categories/:id',(request, response)=>{ //avah
    const {id}=request.params;
+   let category= null;
+
+   for(const cat of categories){
+    if(id==cat.id){
+        category= cat;
+        break;
+    }
+   }
    response.json(categories[Number(id)-1]);
+});
+
+app.delete('/categories/:id', (req, res)=>{ // ustgah 
+    const {id} =req.params;
+    categories= categories.filter((row)=> row.id !==Number(id));
+    res.json(id);
+});
+
+app.post('/categories', jsonParser, (req, res)=>{ //nemeh
+    const {name}=req.body;
+    const newCategory ={id: nextCatId++, name};
+    categories.push(newCategory);
+    res.send(newCategory);
 });
 
 app.get('/article',(req, res)=>{

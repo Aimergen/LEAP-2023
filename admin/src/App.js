@@ -11,25 +11,26 @@ import Signing from './pages/Signing';
 import SigningError from './pages/SigningError';
 import SignUp from './pages/SignUp';
 import SigninSuccess from './pages/SigningSuccess';
+import Categories from './pages/Categories';
 
 export default function App() {
-  const [me, setMe]=useState(undefined);
-  const [show, setShow] = useState(false);
+  // const [me, setMe]=useState(undefined);
+  // const [show, setShow] = useState(false);
   const [menuShow, setMenuShow] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  // const handleClose = () => setShow(false);
+  // const handleShow = () => setShow(true);
 
-  if(!me){
-    return (
-        <Routes>
-            <Route path='/signin' element={<Signing />}/>
-            <Route path='/signin/success' element={<SigninSuccess setMe={setMe} />}/>
-            <Route path='/signup' element={<SignUp />}/>
-            <Route path='*' element={<SigningError />}/>
-        </Routes>
-    )  
-  }
+  // if(!me){
+  //   return (
+  //       <Routes>
+  //           <Route path='/signin' element={<Signing />}/>
+  //           <Route path='/signin/success' element={<SigninSuccess setMe={setMe} />}/>
+  //           <Route path='/signup' element={<SignUp />}/>
+  //           <Route path='*' element={<SigningError />}/>
+  //       </Routes>
+  //   )  
+  // }
 
   return (
     <>
@@ -39,12 +40,13 @@ export default function App() {
         <div className="off-menu-sibling">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/articles" element={<Articles handleShow={handleShow} />} />
+            {/* <Route path="/articles" element={<Articles handleShow={handleShow} />} /> */}
+            <Route path='/categories' element={<Categories />} />
           </Routes>
         </div>
       </div>
 
-      <DynamicModal show={show} handleClose={handleClose} title="Create post" content={<PostCreate />} />
+      {/* <DynamicModal show={show} handleClose={handleClose} title="Create post" content={<PostCreate />} /> */}
     </>
   );
 }
