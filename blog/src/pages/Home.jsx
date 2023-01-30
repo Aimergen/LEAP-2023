@@ -2,14 +2,16 @@ import Card from '../components/Card';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Button } from 'bootstrap';
+
 
 export default function Home() {
   const [articles, setArticles]= useState([]);
   useEffect(()=>{
     axios
-      .get('http://localhost:8000')
+      .get('http://localhost:8000/products')
       .then((res)=>{
-        setArticles(res.data);
+        setArticles(res.data.items);
       });
   },[]);
   // const articles = [
@@ -36,11 +38,17 @@ export default function Home() {
               <Link to={`/articles/${home.id}`}>
                 <Card 
                 title={home.name} 
-                image={home.imageUrl}/>
+                image={home.price}/>
               </Link>
             </div>
           ))}
         </div>
+          <Link>
+            <div className='d-flex justify-content-between m-3'>
+              <button type="button" class="btn btn-success">Preview</button>
+              <button type="button" class="btn btn-outline-secondary">Next</button>
+            </div>
+          </Link>
       </div>
     </main>
   );
