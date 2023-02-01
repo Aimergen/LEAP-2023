@@ -1,7 +1,6 @@
 @import './init.scss';
 
-@import '../../node_modules/bootstrap/dist/css/bootstrap-grid.min.css';
-@import '../../node_modules/bootstrap/dist/css/bootstrap-utilities.min.css';
+@import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 $accentColor: #008080;
 
@@ -139,13 +138,15 @@ header {
   }
 
   .product-card {
+    padding: 10px;
+    border: 1px solid #fff;
     &-img{
       width: 100%;
       height: 0;
       padding-bottom: 100%;
       overflow: hidden;
       position: relative;
-
+      margin-bottom: 1rem;
       img{
         position: absolute;
         left: 0;
@@ -153,6 +154,21 @@ header {
         width: 100%;
         height: 100%;
         object-fit: cover;
+      }
+    }
+    &-name{
+      font-size: 1.5rem;
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin-bottom: 1rem;
+    }
+    &-price{
+      font-weight: bold;
+      font-size: 2rem;
+      &::after{
+        content: '₮';
       }
     }
   }

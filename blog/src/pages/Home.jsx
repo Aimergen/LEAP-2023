@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Button } from 'bootstrap';
+import Products from './Products';
 
 
 export default function Home() {
@@ -38,17 +39,12 @@ export default function Home() {
               <Link to={`/articles/${home.id}`}>
                 <Card 
                 title={home.name} 
-                image={home.price}/>
+                image={home.imageUrl}/>
               </Link>
             </div>
           ))}
         </div>
-          <Link>
-            <div className='d-flex justify-content-between m-3'>
-              <button type="button" class="btn btn-success">Preview</button>
-              <button type="button" class="btn btn-outline-secondary">Next</button>
-            </div>
-          </Link>
+        
       </div>
     </main>
   );
