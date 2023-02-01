@@ -79,7 +79,7 @@ app.put('/categories/:id', jsonParser, (req, res) => {
 });
 
 
-let products=JSON.parse(fs.readFileSync('MOCK_DATA.json', 'utf-8'));
+let products=JSON.parse(fs.readFileSync('Mock-Data.json', 'utf-8'));
 
 app.get('/products', (req, res)=>{
   let {pageSize, page, priceTo, q}=req.query;
