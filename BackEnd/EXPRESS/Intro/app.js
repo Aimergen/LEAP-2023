@@ -22,6 +22,10 @@ let categories = [
     id: 3,
     name: 'Photo',
   },
+  // {
+  //   id: 4,
+  //   name: 'Products'
+  // },
 ];
 
 let nextCatId = categories.length;
@@ -82,7 +86,7 @@ app.put('/categories/:id', jsonParser, (req, res) => {
 let products=JSON.parse(fs.readFileSync('Mock-Data.json', 'utf-8'));
 
 app.get('/products', (req, res)=>{
-  let {pageSize, page, priceTo, q}=req.query;
+  let {pageSize, page, priceTo, priceFrom, q}=req.query;
   pageSize =Number(pageSize) || 10;
   page=Number(page) || 1;
   let start ,end;
@@ -90,11 +94,19 @@ app.get('/products', (req, res)=>{
   start= (page - 1) * pageSize;
   end= page * pageSize;
 
-  const items= products.slice(start, end);
+  const newProducts= products.filter((products)=>{
+    let matching= true;
+    if(q) {
+      matching= products.name.toLowerCase().includes(q.toLowerCase());
+    }
+    return matching;
+  });
+
+  const items= newProducts.slice(start, end);
 
   res.json({
-    total: products.length,
-    totalPages: Math.ceil(products.length / pageSize),
+    total: newProducts.length,
+    totalPages: Math.ceil(newProducts.length / pageSize),
     page,
     pageSize,
     items,

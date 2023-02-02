@@ -10,5 +10,9 @@
     {
       "id": 3,
       "name": "Photo"
+    },
+    {
+      "id": 4,
+      "name": "Products"
     }
 ]
