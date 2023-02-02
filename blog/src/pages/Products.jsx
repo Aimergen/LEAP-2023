@@ -3,23 +3,46 @@ import React, { useEffect, useState } from 'react'
 import dayjs from 'dayjs';
 import currencyFormatter from '../utils/currencyFormatter';
 import relateTime from 'dayjs/plugin/relativeTime';
-import { Link, useLocation } from 'react-router-dom';
+import { json, Link, useLocation, useNavigate } from 'react-router-dom';
 dayjs.extend(relateTime);
 
+/**
+ * 
+ * baraani nuuren heseg
+ */
 export default function Products() {
+    const [isReady, setIsReady] =useState(false);
+
     const [page ,setPage] = useState(null);
     const [currentPage, setCurrentPage]= useState(1);
     const [pageSize, setPageSize]= useState(10);
 
+    const [searchQuery, setSearchQuery]= useState('');
+
+    const [locationQuery, setLocationQuery]= useState('');
+
     const location= useLocation();
+    const navigate= useNavigate();
 
     useEffect (()=>{
-        axios
-            .get(`http://localhost:8000/products?pageSize=${pageSize}&page=${currentPage}`)
-            .then((res)=>{
-                setPage(res.data);
-            });
-    },[currentPage, pageSize]);
+        const newQuery= new URLSearchParams();
+        newQuery.set('pageSize', pageSize);
+        newQuery.set('page', currentPage);
+        if(searchQuery !=='') {
+            newQuery.set('q', searchQuery);
+        }
+        setLocationQuery(newQuery.toString());
+    },[pageSize, currentPage, searchQuery]);
+
+    useEffect(() =>{
+        navigate(`/products?${locationQuery}`);
+    },[locationQuery]);
+
+    useEffect(()=>{
+        if(isReady) {
+            getResult();
+        }
+    },[isReady]);
 
     useEffect(()=>{
         const searchParams= new URLSearchParams(location.search);
@@ -29,7 +52,29 @@ export default function Products() {
         if(searchParams.has('pageSize')) {
             setPageSize(Number(searchParams.get('pageSize')));
         }
-    }, [location])
+        if(searchParams.has('q')){
+            setSearchQuery(searchParams.get('q'));
+        }
+        if(isReady){
+            getResult();
+        }else{
+            setIsReady(true);
+        }
+    }, [location]);
+
+    const getResult =()=>{
+        const urlParams= new URLSearchParams();
+        urlParams.set('pageSize', pageSize);
+        urlParams.set('page', currentPage);
+        if(searchQuery !== ''){
+            urlParams.set('q', searchQuery);
+        }
+        axios
+            .get(`http://localhost:8000/products?${urlParams.toString()}`)
+            .then((res)=>{
+                setPage(res.data);
+            });
+    };
 
     if(!page){
         return (
@@ -91,6 +136,19 @@ export default function Products() {
     <main>
         <div className="container">
             <div className="d-flex justify-content-end mb-4" >
+                <label className='me-4'>
+                    Search for name &nbsp;
+                    <input 
+                    type='text' 
+                    className='form-control' 
+                    placeholder='baraani ner..' 
+                    value={searchQuery} 
+                    onChange={(e)=>{
+                        setSearchQuery(e.target.value);
+                        setCurrentPage(1);
+                    }}
+                    />
+                </label>
                 <label>
                     Pages &nbsp;
                     <select 

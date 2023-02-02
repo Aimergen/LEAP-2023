@@ -4,13 +4,14 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Button } from 'bootstrap';
 import Products from './Products';
+import Photo from '../IMG/home.png';
 
 
 export default function Home() {
   const [articles, setArticles]= useState([]);
   useEffect(()=>{
     axios
-      .get('http://localhost:8000/products')
+      .get('http://localhost:8000')
       .then((res)=>{
         setArticles(res.data.items);
       });
@@ -30,22 +31,28 @@ export default function Home() {
   //   },
   // ];
 
+  // return (
+  //   <main>
+  //     <div className="container">
+  //       <div className="row gy-4">
+  //         {articles.map((home) => (
+  //           <div className="col-md-3 col-sm-6 col-12" key={home.id}>
+  //             <Link to={`/articles/${home.id}`}>
+  //               <Card 
+  //               title={home.name} 
+  //               image={home.imageUrl}/>
+  //             </Link>
+  //           </div>
+  //         ))}
+  //       </div>
+        
+  //     </div>
+  //   </main>
+  // );
+
   return (
     <main>
-      <div className="container">
-        <div className="row gy-4">
-          {articles.map((home) => (
-            <div className="col-md-3 col-sm-6 col-12" key={home.id}>
-              <Link to={`/articles/${home.id}`}>
-                <Card 
-                title={home.name} 
-                image={home.imageUrl}/>
-              </Link>
-            </div>
-          ))}
-        </div>
-        
-      </div>
+      <img src={Photo} alt="" />
     </main>
-  );
+  )
 }

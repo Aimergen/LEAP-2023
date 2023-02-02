@@ -12,7 +12,7 @@ export default function Header() {
     .then((res)=>{
       // setCategories(res.data.body);
       console.log(res.data);
-      setCategories(res.data);
+      setCategories(res.data); 
     });
     // fetch()
     //   .then((res) => res.json())
@@ -49,13 +49,25 @@ export default function Header() {
               <li>
                 
               </li>
-                {categories.map((item) => (
-                 <Link to={item.url}>
-                    <li key={item.id}>
-                      <a >{item.name}</a>
-                    </li>    
-                  </Link>
-                ))}
+                {categories.map((item) => {
+                  if(item.name === 'Products'){
+                    return (
+                      <Link to={'/products'}>
+                        <li key={item.id}>
+                          <a >{item.name}</a>
+                        </li>    
+                      </Link>
+                    );
+                  }else{
+                    return (
+                      <Link>
+                        <li key={item.id}>
+                        <a >{item.name}</a>
+                        </li>    
+                      </Link>
+                    )
+                  }
+                })}
             </ul>
           </nav>
         </div>
