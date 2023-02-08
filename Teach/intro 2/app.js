@@ -1,7 +1,6 @@
 const express = require('express');
 
 const cors = require('cors');
-const fs=require('fs');
 
 const app = express();
 
@@ -25,10 +24,10 @@ let categories = [
 ];
 
 let nextCatId = categories.length;
-let categorie =JSON.parse(fs.readFileSync('categoryData.json', 'utf8'));
 
 app.get('/categories', (request, response) => {
-  response.json(categorie);
+  response.status(200);
+  response.json(categories);
 });
 
 app.get('/categories/:id', (req, res) => {
@@ -48,7 +47,6 @@ app.get('/categories/:id', (req, res) => {
 app.delete('/categories/:id', (req, res) => {
   const { id } = req.params;
   categories = categories.filter((row) => row.id !== id);
-  
   res.json(id);
 });
 
@@ -77,31 +75,6 @@ app.put('/categories/:id', jsonParser, (req, res) => {
   });
   res.json(updatedCat);
 });
-
-
-let products=JSON.parse(fs.readFileSync('MOCK_DATA.json', 'utf-8'));
-
-app.get('/products', (req, res)=>{
-  let {pageSize, page, priceTo, q}=req.query;
-  pageSize =Number(pageSize) || 10;
-  page=Number(page) || 1;
-  let start ,end;
-  
-  start= (page - 1) * pageSize;
-  end= page * pageSize;
-
-  const items= products.slice(start, end);
-
-  res.json({
-    total: products.length,
-    totalPages: Math.ceil(products.length / pageSize),
-    page,
-    pageSize,
-    items,
-  });
-});
-
-
 
 app.listen(port, () => {
   console.log('http://localhost:' + port);
