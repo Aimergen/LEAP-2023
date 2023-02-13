@@ -13,6 +13,7 @@ import Categories from './pages/Categories';
 import Signout from './pages/Signout';
 import MenuPositions from './pages/MenuPositions';
 import Menus from './pages/Menus';
+import Openai from './pages/Openai';
 
 export default function App() {
   const [menuShow, setMenuShow] = useState(false);
@@ -47,6 +48,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/menu-positions" element={<MenuPositions />} />
             <Route path="/menu-positions/:id" element={<Menus />} />
+            <Route path='/openai/generate' element={<Openai />} />
             {/* <Route path="/categories" element={<Categories />} />
             <Route path="/articles" element={<Articles />} /> */}
             {/* <Route path="/signout" element={<Signout setMe={setMe} />} /> */}
