@@ -1,11 +1,19 @@
 const express = require('express');
-
 const cors = require('cors');
+
 const fs=require('fs');
+const dotenv= require('dotenv');
+dotenv.config();
 
 const app = express();
-
 app.use(cors());
+const openaiPackage= require('openai');
+
+const configuration = new openaiPackage.Configuration({
+    apiKey: process.env.OPEN_API_KEY,
+});
+const openai = new openaiPackage.OpenAIApi(configuration);
+
 
 const port = 8000;
 
@@ -180,8 +188,22 @@ app.get('/menus', (req, res) =>{
 return res.json(result);
 });
 
+app.get('/openai/generate', async (req, res)=>{ //AI -s duriin zurag avah
+  console.log('image called');
+  const {prompt} =req.query;
+  const response = await openai.createImage({
+    prompt: "football players",
+    n: 1,
+    size: "256x256",
+  });
+  image_url = response.data.data[0].url;
+  res.json(image_url);
+
+})
 
 
-app.listen(port, () => {
+app.listen(port, async () => {
   console.log('http://localhost:' + port);
+  const response = await openai.listEngines();
+  console.log(response);
 });
