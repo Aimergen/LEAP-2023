@@ -4,6 +4,7 @@ export default function Openai(){
 
     const [showImage, setShowImage] = useState("");
     const [inputText, setInputText] =useState("");
+    const [start, setStart]= useState(false);
     useEffect(() => {
         axios
         .get('http://localhost:8000/openai/generate')
@@ -14,6 +15,10 @@ export default function Openai(){
         });
     }, []);
     
+    const submits=()=>{
+        
+    }
+
     console.log(showImage);
     return (
         <>

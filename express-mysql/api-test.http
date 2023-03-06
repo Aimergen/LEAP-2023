@@ -1,0 +1,44 @@
+GET http://localhost:8000/categories/
+
+###
+
+GET http://localhost:8000/categories/id
+content-type: application/json
+
+{
+    "id":1
+}
+
+###
+POST http://localhost:8000/categories/
+content-type: application/json
+
+{
+    "name":"technossslogy3",
+    "slug": "techdsadas",
+    "imageAddress":""
+}
+
+###
+
+DELETE http://localhost:8000/categories/
+content-type: application/json
+
+{
+    "id":11
+}
+
+
+###
+
+PUT http://localhost:8000/categories/
+content-type: application/json
+
+{
+    "id":1,
+    "name":"ohoho",
+    "slug": "koko",
+    "imageAddress":""
+}
+
+# huselt bolgoniig dund ni ### zaaglah ystoi  baidg
